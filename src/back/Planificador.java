@@ -4,6 +4,9 @@
  */
 package back;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author PC
@@ -50,13 +53,30 @@ public class Planificador {
     
     public synchronized void consumir(){
         while(!vacio){
-            
+            try {
+                wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Planificador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        productos[cantidadProductos] = 0;
+        cantidadProductos--;
+        estaVacio();
+        notifyAll();
     }
     
     public synchronized void producir(){
         while(!lleno){
+            try {
+                wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Planificador.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
+            productos[cantidadProductos++] = 1;
+            cantidadProductos++;
+            estaLleno();
+            notifyAll();
         }
     }
 }

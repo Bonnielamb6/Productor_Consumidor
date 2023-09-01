@@ -4,21 +4,42 @@
  */
 package back;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author PC
  */
 public class Consumidores extends Thread{
-    int despierto = 0;
+    boolean despierto;
+    Planificador buffer;
     
-    public void consumir(){}
+    public Consumidores (Planificador temp){
+        despierto = false;
+        buffer = temp;
+    }
+    
+    
+    
+    public void consumir(){
+        while (despierto){
+            try{
+                buffer.consumir();
+                System.out.println("Consumio");
+                sleep(6000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     
     public void despertar(){
-        despierto = 1;
+        despierto = true;
     }
     
     public void dormir(){
-        despierto = 0;
+        despierto = false;
     }
     
     
