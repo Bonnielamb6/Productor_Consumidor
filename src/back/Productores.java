@@ -17,17 +17,18 @@ public class Productores extends Thread{
     Planificador buffer;
     
     public Productores (Planificador temp){
-        despierto = false;
+        despierto = true;
         buffer = temp;
     }
     
     
-    public void producir(){
+    @Override
+    public void run(){
         while(despierto){
             try {
                 buffer.producir();
                 System.out.println("Produjo");
-                sleep(6000);
+                sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productores.class.getName()).log(Level.SEVERE, null, ex);
             }

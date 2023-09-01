@@ -16,18 +16,19 @@ public class Consumidores extends Thread{
     Planificador buffer;
     
     public Consumidores (Planificador temp){
-        despierto = false;
+        despierto = true;
         buffer = temp;
     }
     
     
     
-    public void consumir(){
-        while (despierto){
+    @Override
+    public void run(){
+        while (true){
             try{
                 buffer.consumir();
                 System.out.println("Consumio");
-                sleep(6000);
+                sleep(1500);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
             }

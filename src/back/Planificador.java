@@ -24,9 +24,21 @@ public class Planificador {
         inicializarArreglo();
     }
     
+    public Planificador(int cantidadTemp){
+        cantidadProductos = cantidadTemp;
+        inicializarArreglo();
+        estaVacio();
+        estaLleno();
+    }
+    
     public void inicializarArreglo(){
         for(int i = 0; i<10 ; i++ ){
-            productos[i] = 0;
+            if(cantidadProductos>i){
+                productos[i] = 1;
+            }else{
+                productos[i] = 0;
+            }
+            
         }
     }
     
@@ -41,7 +53,7 @@ public class Planificador {
     }
     
     public int estaLleno(){ //verifica si esta lleno el almacen
-        if(cantidadProductos == 10){
+        if(cantidadProductos == 9){
             lleno = true;
             return 1;
         }
@@ -52,7 +64,7 @@ public class Planificador {
     }
     
     public synchronized void consumir(){
-        while(!vacio){
+        while(vacio){
             try {
                 wait();
             } catch (InterruptedException ex) {
@@ -62,21 +74,29 @@ public class Planificador {
         productos[cantidadProductos] = 0;
         cantidadProductos--;
         estaVacio();
+        estaLleno();
         notifyAll();
     }
     
     public synchronized void producir(){
-        while(!lleno){
+        while(lleno){
             try {
                 wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Planificador.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            productos[cantidadProductos++] = 1;
+        }  
+            productos[cantidadProductos+1] = 1;
             cantidadProductos++;
             estaLleno();
+            estaVacio();
             notifyAll();
-        }
+        
     }
+
+    public int getCantidadProductos() {
+        return cantidadProductos;
+    }
+    
+    
 }
