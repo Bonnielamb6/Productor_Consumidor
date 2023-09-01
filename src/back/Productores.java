@@ -11,4 +11,6 @@ package back;
  */
 public class Productores {
     int numero;
+    int numero2;
+    int numero3;
 }
