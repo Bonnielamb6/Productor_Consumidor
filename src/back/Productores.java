@@ -9,6 +9,22 @@ package back;
  *
  * @author PC
  */
-public class Productores {
+public class Productores extends Thread{
+    int despierto = 0; //0 significa que esta dormido, 1 que esta despierto
+    
+    
+    
+    public void producir(){
+        
+    }
+    
+    public void despertar(){
+        despierto = 1;
+    }
+    
+    public void dormir(){
+        despierto = 0;
+    }
+    
     
 }

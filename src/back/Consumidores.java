@@ -8,6 +8,18 @@ package back;
  *
  * @author PC
  */
-public class Consumidores {
+public class Consumidores extends Thread{
+    int despierto = 0;
+    
+    public void consumir(){}
+    
+    public void despertar(){
+        despierto = 1;
+    }
+    
+    public void dormir(){
+        despierto = 0;
+    }
+    
     
 }
