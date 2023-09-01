@@ -10,5 +10,5 @@ package back;
  * @author PC
  */
 public class Productores {
-    a
+    int numero;
 }
