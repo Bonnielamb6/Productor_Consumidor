@@ -28,11 +28,17 @@ public class Consumidores extends Thread{
             try{
                 buffer.consumir();
                 System.out.println("Consumio");
-                sleep(1500);
+                if(buffer.getCantidadProductos()==0){
+                    dormir();
+                }else{
+                    despertar();
+                }
+                sleep(15000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }
     
     public void despertar(){
@@ -41,6 +47,10 @@ public class Consumidores extends Thread{
     
     public void dormir(){
         despierto = false;
+    }
+
+    public boolean isDespierto() {
+        return despierto;
     }
     
     

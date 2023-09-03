@@ -24,15 +24,25 @@ public class Productores extends Thread{
     
     @Override
     public void run(){
-        while(despierto){
+        
+        while(true){
             try {
                 buffer.producir();
                 System.out.println("Produjo");
+                if(buffer.getCantidadProductos()==9){
+                    dormir();
+                }else{
+                    despertar();
+                }
                 sleep(1000);
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productores.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+            
+            
+        
     }
     
     public void despertar(){
@@ -41,6 +51,10 @@ public class Productores extends Thread{
     
     public void dormir(){
         despierto = false;
+    }
+
+    public boolean isDespierto() {
+        return despierto;
     }
     
     

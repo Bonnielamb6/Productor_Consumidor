@@ -9,18 +9,25 @@ import back.Productores;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 /**
  *
  * @author PC
  */
 public class Interfaz extends javax.swing.JFrame {
-
+    
+    Planificador bufferPrincipal = new Planificador (1);
+    Consumidores consumidor = new Consumidores (bufferPrincipal);
+    Productores productor = new Productores (bufferPrincipal);
+    Icon icono;
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
-        
+        productor.start();
+        consumidor.start();
     }
 
     
@@ -139,21 +146,45 @@ public class Interfaz extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        Planificador bufferPrincipal = new Planificador (1);
-        Consumidores consumidor = new Consumidores (bufferPrincipal);
-        Productores productor = new Productores (bufferPrincipal);
-        productor.start();
-        consumidor.start();
         
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Interfaz().setVisible(true);
                 
+                
             }
-        });
-    }
 
+            
+        });
+        
+    }
+    
+    
+    
+    @Override
+    public void update(Graphics g) {
+        super.update(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        
+        if(productor.isDespierto()){
+            icono = new ImageIcon(getClass().getResource("/imagenes/productor producir.gif"));
+            imgProductor.setIcon(icono);
+        }else{
+            icono = new ImageIcon(getClass().getResource("/imagenes/productor dormir.gif"));
+            imgProductor.setIcon(icono);
+        }
+        
+        if(consumidor.isDespierto()){
+            icono = new ImageIcon(getClass().getResource("/imagenes/consumidor consumir.gif"));
+            imgConsumidor.setIcon(icono);
+        }else{
+            icono = new ImageIcon(getClass().getResource("/imagenes/consumidor dormir.gif"));
+            imgConsumidor.setIcon(icono);
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imgConsumidor;
     private javax.swing.JLabel imgProductor;
