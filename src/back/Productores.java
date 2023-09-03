@@ -14,11 +14,13 @@ import java.util.logging.Logger;
  */
 public class Productores extends Thread{
     boolean despierto; 
+    boolean corriendo;
     Planificador buffer;
     
     public Productores (Planificador temp){
         despierto = true;
         buffer = temp;
+        corriendo = true;
     }
     
     
@@ -27,14 +29,18 @@ public class Productores extends Thread{
         
         while(true){
             try {
-                buffer.producir();
-                System.out.println("Produjo");
                 if(buffer.getCantidadProductos()==9){
                     dormir();
                 }else{
                     despertar();
                 }
-                sleep(1000);
+                if(despierto){
+                    buffer.producir();
+                    System.out.println("Produjo");
+                }
+                
+                
+                sleep(3000);
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productores.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,6 +61,18 @@ public class Productores extends Thread{
 
     public boolean isDespierto() {
         return despierto;
+    }
+    
+    public void correr(){
+        corriendo = true;
+    }
+    
+    public void detener(){
+        corriendo = false;
+    }
+
+    public boolean isCorriendo() {
+        return corriendo;
     }
     
     

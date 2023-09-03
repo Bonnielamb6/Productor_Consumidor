@@ -26,14 +26,17 @@ public class Consumidores extends Thread{
     public void run(){
         while (true){
             try{
-                buffer.consumir();
-                System.out.println("Consumio");
+                
                 if(buffer.getCantidadProductos()==0){
                     dormir();
                 }else{
                     despertar();
                 }
-                sleep(15000);
+                if(despierto){
+                    buffer.consumir();
+                    System.out.println("Consumio");
+                }
+                sleep(10000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -72,7 +72,7 @@ public class Planificador {
             }
         }
         productos[cantidadProductos] = 0;
-        cantidadProductos--;
+        cantidadProductos = cantidadProductos-1;
         estaVacio();
         estaLleno();
         notifyAll();
@@ -87,7 +87,7 @@ public class Planificador {
             }
         }  
             productos[cantidadProductos+1] = 1;
-            cantidadProductos++;
+            cantidadProductos = cantidadProductos+1;
             estaLleno();
             estaVacio();
             notifyAll();
