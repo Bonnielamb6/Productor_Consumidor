@@ -52,11 +52,21 @@ public class Productores extends Thread{
     }
     
     public void despertar(){
-        despierto = true;
+        try {
+            despierto = true;
+            sleep((long) (Math.random() * 2000));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void dormir(){
-        despierto = false;
+        try {
+            despierto = false;
+            sleep((long) (Math.random() * 2000));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public boolean isDespierto() {

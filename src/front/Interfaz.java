@@ -31,7 +31,7 @@ public class Interfaz extends javax.swing.JFrame {
     Icon icono;
     AudioClip cancion;
     JLabel[] productos;
-    Stack<JLabel> puerros;
+    
     JLabel prueba = new JLabel(puerro);
     
     /**
@@ -40,7 +40,7 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         
         initComponents();
-        puerros = new Stack<JLabel>();
+        
         panelPrincipal.setLayout(null);
         prueba.setBounds(500, 500, 180, 180);
         productos = new JLabel[10];
@@ -195,6 +195,7 @@ public class Interfaz extends javax.swing.JFrame {
             consumidor.start();
             actualizarVentana();
             lblStatusPrograma.setText("CORRIENDO");
+            btnEmpezar.setText("Detener");
             cancion = java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/graze the roof.wav"));
             cancion.loop();
             
@@ -205,6 +206,7 @@ public class Interfaz extends javax.swing.JFrame {
             consumidor.dormir();
             productor.detener();
             lblStatusPrograma.setText("DETENIDO");
+            btnEmpezar.setText("Empezar");
             cancion.stop();
         }else{
             productor.resume();
@@ -213,6 +215,7 @@ public class Interfaz extends javax.swing.JFrame {
             productor.despertar();
             consumidor.despertar();
             lblStatusPrograma.setText("CORRIENDO");
+            btnEmpezar.setText("Detener");
             cancion.loop();
         }
         
@@ -252,8 +255,6 @@ public class Interfaz extends javax.swing.JFrame {
             public void run() {
                 
                 new Interfaz().setVisible(true);
-                
-                
             }
 
             
@@ -297,58 +298,15 @@ public class Interfaz extends javax.swing.JFrame {
     
     public void pintar(){
         
-        
-        puerros.clear();
-        System.out.println("\t" +cantidadActual);
-        
-        for(JLabel i:puerros){
-            setVisible(false);
-            
-            i = null;
-            remove(i);
-            panelPrincipal.remove(i);
-            
-        }
-        
-        while(cantidadActual<puerros.size()){
-            JLabel temp = puerros.peek();
-            panelPrincipal.setVisible(false);
-            puerros.peek().setIcon(icono);
-            temp.setIcon(icono);
-            puerros.elementAt(puerros.size()-1).setIcon(null);
-            puerros.peek().remove(puerros.size());
-            puerros.pop();
-            //panelPrincipal.remove(panelPrincipal.getComponentAt(puerros.peek().getLocation()));
-
-            
-            panelPrincipal.remove(puerros.peek());
-            
-            
-        }
         for(int i = 0;i<10;i++){
             productos[i].setVisible(false);
         }
+        
         for(int i = 0;i<cantidadActual;i++){
-            if(productos[i]!=null){
-                productos[i].setVisible(true);
-            }
-            
+            productos[i].setVisible(true);
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
         panelPrincipal.updateUI();
-        
-    }
-    
-    public void repintar(){
-        
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
