@@ -30,6 +30,7 @@ public class Interfaz extends javax.swing.JFrame {
     int cantidadActual;
     Icon icono;
     AudioClip cancion;
+    JLabel[] productos;
     Stack<JLabel> puerros;
     JLabel prueba = new JLabel(puerro);
     
@@ -42,6 +43,15 @@ public class Interfaz extends javax.swing.JFrame {
         puerros = new Stack<JLabel>();
         panelPrincipal.setLayout(null);
         prueba.setBounds(500, 500, 180, 180);
+        productos = new JLabel[10];
+        for(int i = 0;i<10;i++){
+            JLabel temp = new JLabel(puerro);
+            temp.setBounds(100+(i*105), 500, 100, 100);
+            panelPrincipal.add(temp);
+            temp.setVisible(false);
+            productos[i] = temp;
+        }
+        
         //panelPrincipal.add(prueba);
     }
 
@@ -108,10 +118,13 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(imgProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPrograma)
-                    .addComponent(lblStatusPrograma))
-                .addGap(78, 78, 78)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(lblPrograma)
+                        .addGap(78, 78, 78))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(lblStatusPrograma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(65, 65, 65)))
                 .addComponent(imgConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
             .addGroup(panelPrincipalLayout.createSequentialGroup()
@@ -290,26 +303,35 @@ public class Interfaz extends javax.swing.JFrame {
         
         for(JLabel i:puerros){
             setVisible(false);
+            
+            i = null;
             remove(i);
             panelPrincipal.remove(i);
+            
         }
-        while(puerros.size()<bufferPrincipal.getCantidadProductos()){
+        
+        while(cantidadActual<puerros.size()){
+            JLabel temp = puerros.peek();
+            panelPrincipal.setVisible(false);
+            puerros.peek().setIcon(icono);
+            temp.setIcon(icono);
+            puerros.elementAt(puerros.size()-1).setIcon(null);
+            puerros.peek().remove(puerros.size());
+            puerros.pop();
+            //panelPrincipal.remove(panelPrincipal.getComponentAt(puerros.peek().getLocation()));
 
-            JLabel temp = new JLabel(puerro);
-            temp.setBounds(100+(cantidadActual*105), 500, 100, 100);
-            puerros.push(temp);
-            panelPrincipal.add(puerros.peek());
-            
-            
-        };
-            
-        while(cantidadActual<puerros.size()-1){
             
             panelPrincipal.remove(puerros.peek());
             
-            puerros.pop();
             
-            
+        }
+        for(int i = 0;i<10;i++){
+            productos[i].setVisible(false);
+        }
+        for(int i = 0;i<cantidadActual;i++){
+            if(productos[i]!=null){
+                productos[i].setVisible(true);
+            }
             
         }
         
@@ -317,6 +339,11 @@ public class Interfaz extends javax.swing.JFrame {
         
         
         
+        
+        
+        
+        
+        panelPrincipal.updateUI();
         
     }
     

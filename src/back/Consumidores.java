@@ -36,7 +36,7 @@ public class Consumidores extends Thread{
                     buffer.consumir();
                     System.out.println("Consumio");
                 }
-                sleep(10000);
+                sleep((long) (Math.random() * 10000));
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
             }

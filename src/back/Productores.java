@@ -40,7 +40,7 @@ public class Productores extends Thread{
                 }
                 
                 
-                sleep(3000);
+                sleep((long) (Math.random() * 10000));
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Productores.class.getName()).log(Level.SEVERE, null, ex);
