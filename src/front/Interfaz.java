@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import java.applet.AudioClip;
 import java.awt.Cursor;
 import java.awt.List;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -27,6 +28,12 @@ public class Interfaz extends javax.swing.JFrame {
     Consumidores consumidor = new Consumidores (bufferPrincipal);
     Productores productor = new Productores (bufferPrincipal);
     Icon puerro = new ImageIcon(getClass().getResource("/imagenes/puerro2.png"));
+    
+    Consumidores listaConsumidores[];
+    Productores listaProductores[];
+    int consumidoresActuales;
+    int productoresActuales;
+    
     int cantidadActual;
     Icon icono;
     AudioClip cancion;
@@ -41,9 +48,14 @@ public class Interfaz extends javax.swing.JFrame {
         
         initComponents();
         
-        panelPrincipal.setLayout(null);
+        
         prueba.setBounds(500, 500, 180, 180);
         productos = new JLabel[10];
+        listaConsumidores = new Consumidores[5];
+        listaProductores = new Productores[5];
+        consumidoresActuales = 0;
+        productoresActuales = 0;
+        
         for(int i = 0;i<10;i++){
             JLabel temp = new JLabel(puerro);
             temp.setBounds(100+(i*105), 500, 100, 100);
@@ -51,6 +63,13 @@ public class Interfaz extends javax.swing.JFrame {
             temp.setVisible(false);
             productos[i] = temp;
         }
+        for (int i = 0;i<5;i++){
+            Consumidores temp = new Consumidores(bufferPrincipal);
+            Productores temp2 = new Productores(bufferPrincipal);
+            listaConsumidores[i] = temp;
+            listaProductores[i]=temp2;
+        }
+        
         
         //panelPrincipal.add(prueba);
     }
@@ -76,6 +95,10 @@ public class Interfaz extends javax.swing.JFrame {
         lblPrograma = new javax.swing.JLabel();
         lblStatusPrograma = new javax.swing.JLabel();
         lblCantidadActual = new javax.swing.JLabel();
+        btnAgregarConsumidor = new javax.swing.JButton();
+        btnAgregarProductor = new javax.swing.JButton();
+        lblCantidadProductores = new javax.swing.JLabel();
+        lblCantidadConsumidores = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,14 +127,36 @@ public class Interfaz extends javax.swing.JFrame {
 
         lblCantidadActual.setText("Cantidad actual: 0");
 
+        btnAgregarConsumidor.setText("Agregar consumidor");
+        btnAgregarConsumidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarConsumidorActionPerformed(evt);
+            }
+        });
+
+        btnAgregarProductor.setText("Agregar productor");
+        btnAgregarProductor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductorActionPerformed(evt);
+            }
+        });
+
+        lblCantidadProductores.setText("Productores: ");
+
+        lblCantidadConsumidores.setText("Consumidores: ");
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(246, 246, 246)
+                .addGap(32, 32, 32)
+                .addComponent(lblCantidadProductores, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
                 .addComponent(lblProductor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCantidadConsumidores, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97)
                 .addComponent(lblConsumidor)
                 .addGap(248, 248, 248))
             .addGroup(panelPrincipalLayout.createSequentialGroup()
@@ -133,38 +178,54 @@ public class Interfaz extends javax.swing.JFrame {
                         .addGap(479, 479, 479)
                         .addComponent(btnEmpezar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(512, 512, 512)
-                        .addComponent(lblAlmacen))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(lblCantidadActual)))
+                        .addGap(32, 32, 32)
+                        .addComponent(lblCantidadActual)
+                        .addGap(385, 385, 385)
+                        .addComponent(lblAlmacen)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(btnAgregarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAgregarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(224, 224, 224))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblProductor))
-                    .addComponent(lblConsumidor))
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(imgProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(imgConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addComponent(lblCantidadActual)
-                        .addGap(7, 7, 7)
-                        .addComponent(btnEmpezar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblProductor))
+                            .addComponent(lblConsumidor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPrograma)
                         .addGap(75, 75, 75)
-                        .addComponent(lblStatusPrograma)))
+                        .addComponent(lblStatusPrograma))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(lblCantidadProductores))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblCantidadConsumidores)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(imgProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imgConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAgregarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addComponent(btnEmpezar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(lblAlmacen)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAlmacen)
+                    .addComponent(lblCantidadActual))
                 .addGap(303, 303, 303))
         );
 
@@ -173,16 +234,14 @@ public class Interfaz extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -191,8 +250,8 @@ public class Interfaz extends javax.swing.JFrame {
     private void btnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpezarActionPerformed
         // TODO add your handling code here:
         if(!productor.isAlive()){
-            productor.start();
-            consumidor.start();
+            listaProductores[productoresActuales].start();
+            listaConsumidores[consumidoresActuales].start();
             actualizarVentana();
             lblStatusPrograma.setText("CORRIENDO");
             btnEmpezar.setText("Detener");
@@ -200,6 +259,12 @@ public class Interfaz extends javax.swing.JFrame {
             cancion.loop();
             
         }else if (productor.isCorriendo()){
+            for(int i = 0;i<productoresActuales;i++){
+                listaProductores[i].suspend();
+            }
+            for (int i = 0;i<consumidoresActuales;i++){
+                listaConsumidores[i].suspend();
+            }
             productor.suspend();
             consumidor.suspend();
             productor.dormir();
@@ -209,17 +274,47 @@ public class Interfaz extends javax.swing.JFrame {
             btnEmpezar.setText("Empezar");
             cancion.stop();
         }else{
+            for(int i = 0;i<productoresActuales;i++){
+                listaProductores[i].resume();
+                
+            }
+            for (int i = 0;i<consumidoresActuales;i++){
+                listaConsumidores[i].resume();
+                
+            }
+            /*
             productor.resume();
             consumidor.resume();
             productor.correr();
             productor.despertar();
             consumidor.despertar();
+            */
             lblStatusPrograma.setText("CORRIENDO");
             btnEmpezar.setText("Detener");
             cancion.loop();
         }
         
     }//GEN-LAST:event_btnEmpezarActionPerformed
+
+    private void btnAgregarProductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductorActionPerformed
+        // TODO add your handling code here:
+        if(productoresActuales<4){
+            productoresActuales++;
+            listaProductores[productoresActuales].start();
+        }else{
+            
+        }
+        
+    }//GEN-LAST:event_btnAgregarProductorActionPerformed
+
+    private void btnAgregarConsumidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarConsumidorActionPerformed
+        // TODO add your handling code here:
+        if(consumidoresActuales<4){
+            consumidoresActuales++;
+            listaConsumidores[consumidoresActuales].start();
+        }
+        
+    }//GEN-LAST:event_btnAgregarConsumidorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,7 +360,8 @@ public class Interfaz extends javax.swing.JFrame {
     public void actualizarVentana(){
         Thread ventana = new Thread(()->{
             while(!Thread.currentThread().isInterrupted()){
-                
+                lblCantidadProductores.setText("Productores: "+(productoresActuales+1));
+                lblCantidadConsumidores.setText("Consumidores: "+(consumidoresActuales+1));
                 if (cantidadActual!= bufferPrincipal.getCantidadProductos()){
                     cantidadActual= bufferPrincipal.getCantidadProductos();
                     pintar();
@@ -273,7 +369,7 @@ public class Interfaz extends javax.swing.JFrame {
                 lblCantidadActual.setText("Cantidad actual: " + cantidadActual);
                 
                 
-                if(productor.isDespierto()){
+                if(listaProductores[0].isDespierto()){
                     icono = new ImageIcon(getClass().getResource("/imagenes/productor producir.gif"));
                     imgProductor.setIcon(icono);
                 }else{
@@ -281,7 +377,7 @@ public class Interfaz extends javax.swing.JFrame {
                     imgProductor.setIcon(icono);
                 }
 
-                if(consumidor.isDespierto()){
+                if(listaConsumidores[0].isDespierto()){
                     icono = new ImageIcon(getClass().getResource("/imagenes/consumidor consumir.gif"));
                     imgConsumidor.setIcon(icono);
                 }else{
@@ -310,11 +406,15 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarConsumidor;
+    private javax.swing.JButton btnAgregarProductor;
     private javax.swing.JButton btnEmpezar;
     private javax.swing.JLabel imgConsumidor;
     private javax.swing.JLabel imgProductor;
     private javax.swing.JLabel lblAlmacen;
     private javax.swing.JLabel lblCantidadActual;
+    private javax.swing.JLabel lblCantidadConsumidores;
+    private javax.swing.JLabel lblCantidadProductores;
     private javax.swing.JLabel lblConsumidor;
     private javax.swing.JLabel lblProductor;
     private javax.swing.JLabel lblPrograma;

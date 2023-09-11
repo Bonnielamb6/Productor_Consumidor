@@ -16,7 +16,7 @@ public class Consumidores extends Thread{
     Planificador buffer;
     
     public Consumidores (Planificador temp){
-        despierto = true;
+        despierto = false;
         buffer = temp;
     }
     
@@ -48,21 +48,11 @@ public class Consumidores extends Thread{
     }
     
     public void despertar(){
-        try {
-            despierto = true;
-            sleep((long) (Math.random() * 2000));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        despierto = true;
     }
     
     public void dormir(){
-        try {
-            despierto = false;
-            sleep((long) (Math.random() * 2000));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Consumidores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        despierto = false;
     }
 
     public boolean isDespierto() {
