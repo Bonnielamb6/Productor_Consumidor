@@ -305,23 +305,33 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void btnAgregarProductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductorActionPerformed
         // TODO add your handling code here:
-        if(productoresActuales<4){
+        if(listaProductores[0].isAlive()){
+            if(productoresActuales<4){
             productoresActuales++;
             listaProductores[productoresActuales].start();
+            }else{
+                JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 productores UnU");
+            }
         }else{
-            JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 productores UnU");
+            JOptionPane.showMessageDialog(null, "Primero presiona empezar porfavor UwU");
         }
+        
         
     }//GEN-LAST:event_btnAgregarProductorActionPerformed
 
     private void btnAgregarConsumidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarConsumidorActionPerformed
         // TODO add your handling code here:
-        if(consumidoresActuales<4){
+        if(listaProductores[0].isAlive()){
+            if(consumidoresActuales<4){
             consumidoresActuales++;
             listaConsumidores[consumidoresActuales].start();
+            }else{
+                JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 consumidores UnU");
+            }
         }else{
-            JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 consumidores UnU");
+            JOptionPane.showMessageDialog(null, "Primero presiona empezar porfavor UwU");
         }
+        
         
     }//GEN-LAST:event_btnAgregarConsumidorActionPerformed
 
