@@ -29,7 +29,7 @@ public class Productores extends Thread{
         
         while(true){
             try {
-                if(buffer.getCantidadProductos()==9){
+                if(buffer.getCantidadProductos()==10){
                     dormir();
                 }else{
                     despertar();

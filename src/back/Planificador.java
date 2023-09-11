@@ -32,7 +32,7 @@ public class Planificador {
     }
     
     public void inicializarArreglo(){
-        for(int i = 0; i<10 ; i++ ){
+        for(int i = 0; i<11 ; i++ ){
             if(cantidadProductos>i){
                 productos[i] = 1;
             }else{
@@ -98,5 +98,16 @@ public class Planificador {
         return cantidadProductos;
     }
     
+    public void restarAlmacen(){
+        if(cantidadProductos>0){
+            cantidadProductos--;
+        }
+        
+    }
     
+    public void sumarAlmacen(){
+        if(cantidadProductos<10){
+            cantidadProductos++;
+        }
+    }
 }
