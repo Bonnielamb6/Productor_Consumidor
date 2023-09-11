@@ -14,17 +14,19 @@ import java.util.logging.Logger;
 public class Consumidores extends Thread{
     boolean despierto;
     Planificador buffer;
+    boolean vivo = true;
     
     public Consumidores (Planificador temp){
         despierto = false;
         buffer = temp;
+        vivo = true;
     }
     
     
     
     @Override
     public void run(){
-        while (true){
+        while (vivo){
             try{
                 
                 if(buffer.getCantidadProductos()==0){
@@ -59,5 +61,7 @@ public class Consumidores extends Thread{
         return despierto;
     }
     
-    
+    public void terminarHilo(){
+        vivo = false;
+    }
 }

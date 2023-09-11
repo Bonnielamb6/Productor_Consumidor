@@ -63,12 +63,11 @@ public class Interfaz extends javax.swing.JFrame {
             temp.setVisible(false);
             productos[i] = temp;
         }
-        for (int i = 0;i<5;i++){
-            Consumidores temp = new Consumidores(bufferPrincipal);
-            Productores temp2 = new Productores(bufferPrincipal);
-            listaConsumidores[i] = temp;
-            listaProductores[i]=temp2;
-        }
+        Consumidores temp = new Consumidores(bufferPrincipal);
+        Productores temp2 = new Productores(bufferPrincipal);
+        listaConsumidores[0] = temp;
+        listaProductores[0] = temp2;
+        
         
         
         //panelPrincipal.add(prueba);
@@ -101,6 +100,8 @@ public class Interfaz extends javax.swing.JFrame {
         lblCantidadConsumidores = new javax.swing.JLabel();
         btnSumarAlmacen = new javax.swing.JButton();
         btnRestarAlmacen = new javax.swing.JButton();
+        btnEliminarProductor = new javax.swing.JButton();
+        btnEliminarConsumidor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,29 +164,24 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarProductor.setText("Eliminar productor");
+        btnEliminarProductor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProductorActionPerformed(evt);
+            }
+        });
+
+        btnEliminarConsumidor.setText("Eliminar consumidor");
+        btnEliminarConsumidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarConsumidorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(imgProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(lblPrograma)
-                        .addGap(78, 78, 78))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(lblStatusPrograma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(65, 65, 65)))
-                .addComponent(imgConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                .addGap(173, 173, 173)
-                .addComponent(btnAgregarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(224, 224, 224))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
@@ -212,6 +208,31 @@ public class Interfaz extends javax.swing.JFrame {
                         .addGap(97, 97, 97)
                         .addComponent(lblConsumidor)))
                 .addGap(248, 248, 248))
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(imgProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(lblPrograma)
+                                .addGap(78, 78, 78))
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(lblStatusPrograma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(65, 65, 65))))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(btnAgregarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnEliminarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imgConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(btnAgregarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)
+                        .addComponent(btnEliminarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(79, 79, 79))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,9 +261,13 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(imgProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(imgConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEliminarConsumidor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnEliminarProductor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnAgregarConsumidor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAgregarProductor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(9, 9, 9)
                         .addComponent(btnEmpezar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,6 +364,8 @@ public class Interfaz extends javax.swing.JFrame {
         if(listaProductores[0].isAlive()){
             if(productoresActuales<4){
             productoresActuales++;
+            Productores temp = new Productores(bufferPrincipal);
+            listaProductores[productoresActuales] = temp;
             listaProductores[productoresActuales].start();
             }else{
                 JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 productores UnU");
@@ -355,6 +382,8 @@ public class Interfaz extends javax.swing.JFrame {
         if(listaProductores[0].isAlive()){
             if(consumidoresActuales<4){
             consumidoresActuales++;
+            Consumidores temp = new Consumidores(bufferPrincipal);
+            listaConsumidores[consumidoresActuales] = temp;
             listaConsumidores[consumidoresActuales].start();
             }else{
                 JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 consumidores UnU");
@@ -385,6 +414,34 @@ public class Interfaz extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnRestarAlmacenActionPerformed
+
+    private void btnEliminarProductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductorActionPerformed
+        // TODO add your handling code here:
+        if(listaProductores[0].isAlive()){
+            if(productoresActuales>0){
+                listaProductores[productoresActuales].terminarHilo();
+                productoresActuales--;
+            }else{
+                JOptionPane.showMessageDialog(null, "No puedes eliminar mas productores");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Primero presiona empezar porfavor");
+        }
+    }//GEN-LAST:event_btnEliminarProductorActionPerformed
+
+    private void btnEliminarConsumidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarConsumidorActionPerformed
+        // TODO add your handling code here:
+        if(listaProductores[0].isAlive()){
+            if(consumidoresActuales>0){
+                listaConsumidores[consumidoresActuales].terminarHilo();
+                consumidoresActuales--;
+            }else{
+                JOptionPane.showMessageDialog(null, "No puedes eliminar mas consumidores");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Primero presiona empezar porfavor");
+        }
+    }//GEN-LAST:event_btnEliminarConsumidorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -478,6 +535,8 @@ public class Interfaz extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarConsumidor;
     private javax.swing.JButton btnAgregarProductor;
+    private javax.swing.JButton btnEliminarConsumidor;
+    private javax.swing.JButton btnEliminarProductor;
     private javax.swing.JButton btnEmpezar;
     private javax.swing.JButton btnRestarAlmacen;
     private javax.swing.JButton btnSumarAlmacen;

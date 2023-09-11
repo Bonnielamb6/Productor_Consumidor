@@ -16,18 +16,20 @@ public class Productores extends Thread{
     boolean despierto; 
     boolean corriendo;
     Planificador buffer;
+    boolean vivo;
     
     public Productores (Planificador temp){
         despierto = true;
         buffer = temp;
         corriendo = true;
+        vivo = true;
     }
     
     
     @Override
     public void run(){
         
-        while(true){
+        while(vivo){
             try {
                 if(buffer.getCantidadProductos()==10){
                     dormir();
@@ -75,5 +77,7 @@ public class Productores extends Thread{
         return corriendo;
     }
     
-    
+    public void terminarHilo(){
+        vivo = false;
+    }
 }
