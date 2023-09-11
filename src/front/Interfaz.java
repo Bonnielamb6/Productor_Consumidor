@@ -249,7 +249,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void btnEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpezarActionPerformed
         // TODO add your handling code here:
-        if(!productor.isAlive()){
+        if(!listaProductores[0].isAlive()){
             listaProductores[productoresActuales].start();
             listaConsumidores[consumidoresActuales].start();
             actualizarVentana();
@@ -258,29 +258,36 @@ public class Interfaz extends javax.swing.JFrame {
             cancion = java.applet.Applet.newAudioClip(getClass().getResource("/sonidos/graze the roof.wav"));
             cancion.loop();
             
-        }else if (productor.isCorriendo()){
-            for(int i = 0;i<productoresActuales;i++){
+        }else if (listaProductores[0].isCorriendo()){
+            for(int i = 0;i<=productoresActuales;i++){
                 listaProductores[i].suspend();
+                listaProductores[i].dormir();
+                listaProductores[i].detener();
             }
-            for (int i = 0;i<consumidoresActuales;i++){
+            for (int i = 0;i<=consumidoresActuales;i++){
                 listaConsumidores[i].suspend();
+                listaConsumidores[i].dormir();
             }
+            /*
             productor.suspend();
             consumidor.suspend();
             productor.dormir();
             consumidor.dormir();
-            productor.detener();
+            productor.detener();*/
             lblStatusPrograma.setText("DETENIDO");
             btnEmpezar.setText("Empezar");
             cancion.stop();
         }else{
-            for(int i = 0;i<productoresActuales;i++){
+            for(int i = 0;i<=productoresActuales;i++){
                 listaProductores[i].resume();
+                listaProductores[i].despertar();
+                listaProductores[i].correr();
                 
             }
-            for (int i = 0;i<consumidoresActuales;i++){
+            for (int i = 0;i<=consumidoresActuales;i++){
                 listaConsumidores[i].resume();
-                
+                listaConsumidores[i].despertar();
+                        
             }
             /*
             productor.resume();
@@ -302,7 +309,7 @@ public class Interfaz extends javax.swing.JFrame {
             productoresActuales++;
             listaProductores[productoresActuales].start();
         }else{
-            
+            JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 productores UnU");
         }
         
     }//GEN-LAST:event_btnAgregarProductorActionPerformed
@@ -312,6 +319,8 @@ public class Interfaz extends javax.swing.JFrame {
         if(consumidoresActuales<4){
             consumidoresActuales++;
             listaConsumidores[consumidoresActuales].start();
+        }else{
+            JOptionPane.showMessageDialog(null,"Nomas se pueden poner un maximo de 5 consumidores UnU");
         }
         
     }//GEN-LAST:event_btnAgregarConsumidorActionPerformed

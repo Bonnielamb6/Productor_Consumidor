@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class Planificador {
     int cantidadProductos;
-    int[] productos = new int [10]; //si el valor dentro del arreglo es un 0 entonces no hay producto, si es un 1, si tiene producto
+    int[] productos = new int [11]; //si el valor dentro del arreglo es un 0 entonces no hay producto, si es un 1, si tiene producto
     boolean vacio;
     boolean lleno;
     
@@ -53,7 +53,7 @@ public class Planificador {
     }
     
     public int estaLleno(){ //verifica si esta lleno el almacen
-        if(cantidadProductos == 9){
+        if(cantidadProductos == 10){
             lleno = true;
             return 1;
         }
